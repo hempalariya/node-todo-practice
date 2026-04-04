@@ -1,8 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const User = require('./schema')
 const cors = require('cors')
-
+const router = require('./routes/userRoutes')
 const app = express()
 app.use(cors())
 
@@ -13,16 +12,10 @@ mongoose.connect(url).then(console.log('connected'))
 
 app.use(express.json())
 
-
-app.get('/user', (req, res) => {
-    console.log('hello from server')
-    res.send('hello form sever')
-})
-
-
-
+app.use('/user', router)
 
 
 app.listen(5000, () => {
     console.log('listening')
 })
+
