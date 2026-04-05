@@ -18,16 +18,18 @@ router.get('/', (req, res) => {
 
 router.post('/login', async (req, res) => {
     const {email, password} = req.body
-    const userFound = User.find({email})
+    const userFound = await User.findOne({email})
+    console.log(userFound)
     if(!userFound) {
         console.log('wrong')
     }
 
     if(password !== userFound.password){
         console.log('wrong pass')
+        return
     }
 
-    console.log(userFound)
+    console.log('userFound')
 })
 
 

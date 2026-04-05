@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -5,17 +6,15 @@ const router = require('./routes/userRoutes')
 const app = express()
 app.use(cors())
 
-const url = 'mongodb+srv://mahimasunal1234_db_user:A9hyuIaLoeyafJMO@cluster0.jf6db1j.mongodb.net/?appName=Cluster0'
-
-
-mongoose.connect(url).then(console.log('connected'))
+mongoose.connect(process.env.URI).then(console.log('connected'))
 
 app.use(express.json())
 
 app.use('/user', router)
 
+const port = process.env.PORT || 5000
 
-app.listen(5000, () => {
+app.listen(port, () => {
     console.log('listening')
 })
 

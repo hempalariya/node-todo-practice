@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import Form from "../components/Form";
+import Button from "../components/Button";
+import Input from "../components/Input";
 
 export default function Register() {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
     number: "",
+    password: "",
   });
 
   function handleInput(e) {
@@ -29,11 +33,12 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="name" required name="name" onChange={handleInput}/>
-      <input type="email" placeholder="email" required name="email" onChange={handleInput}/>
-      <input type="text" placeholder="number" required name="number" onChange={handleInput}/>
-      <button>add</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Input type="text" placeholder="name" name="name" onChange={handleInput}/>
+      <Input type="email" placeholder="email" name="email" onChange={handleInput}/>
+      <Input type="text" placeholder="number" name="number" onChange={handleInput}/>
+      <Input type="password" placeholder="password" name="password" onChange={handleInput}/>
+      <Button type="submit">add</Button>
+    </Form>
   );
 }
