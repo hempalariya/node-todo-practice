@@ -1,36 +1,57 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../schema')
+const express = require("express");
+const router = express.Router();
+const User = require("../schema");
+const bcryptjs = require("bcryptjs");
 
+router.post("/", async (req, res) => {
+  const { name, email, number, password } = req.body;
 
-router.post('/', async (req, res)=>{
-    console.log(req.body)
-    const response = await User.create(req.body)
-    res.send('fir se hello from server')
-})
+  const hashedPassword = await bcryptjs.hash(password, 8);
+  console.log(hashedPassword);
 
+  const response = await User.create({
+    name,
+    email,
+    number,
+    password: hashedPassword,
+  });
 
-router.get('/', (req, res) => {
-    console.log('hello from server')
-    res.send('hello form sever')
-})
+  if(!response) {
+    console.log("error");
+  }
+  res.status(200).json({
+    name,
+    number,
+  });
+});
 
+router.get("/", (req, res) => {
+  console.log("hello from server");
+  res.send("hello form sever");
+});
 
-router.post('/login', async (req, res) => {
-    const {email, password} = req.body
-    const userFound = await User.findOne({email})
-    console.log(userFound)
-    if(!userFound) {
-        console.log('wrong')
-    }
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  console.log(req.body)
+  const userFound = await User.findOne({ email });
 
-    if(password !== userFound.password){
-        console.log('wrong pass')
-        return
-    }
+  if (!userFound) {
+    console.log("wrong");
+  }
 
-    console.log('userFound')
-})
+  const passwordMatch = await bcryptjs.compare(password, userFound.password);
 
+  console.log(passwordMatch);
 
-module.exports = router     
+  if (!passwordMatch) {
+    console.log("wrong pass");
+    return;
+  }
+
+  res.status(200).json({
+    name: userFound.name,
+    number: userFound.number
+  })
+});
+
+module.exports = router;

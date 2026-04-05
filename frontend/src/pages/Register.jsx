@@ -21,7 +21,7 @@ export default function Register() {
 
   async function handleSubmit(e){
     e.preventDefault()
-    const resposnse = await fetch('http://localhost:5000/user', {
+    const response = await fetch('http://localhost:5000/user', {
       method : 'POST',
        headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,12 @@ export default function Register() {
       body: JSON.stringify(userInfo),
     })
 
+    if(!response.ok){
+      console.log('internal server error')
+    }
 
+    const data = await response.json()
+    console.log(data)
   }
 
   return (
