@@ -34,7 +34,7 @@ export default function Login() {
     <Form onSubmit={handleSubmit}>
       <Input type="email" placeholder="email" required name="email" onChange={handleInput}/>
       <Input type="password" placeholder="password" required name="password" onChange={handleInput}/>
-      <Button type="submit">login</Button>
+      <Button type="submit">Login</Button>
     </Form>
   )
 }

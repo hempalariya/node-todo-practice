@@ -38,7 +38,7 @@ export default function Register() {
       <Input type="email" placeholder="email" name="email" onChange={handleInput}/>
       <Input type="text" placeholder="number" name="number" onChange={handleInput}/>
       <Input type="password" placeholder="password" name="password" onChange={handleInput}/>
-      <Button type="submit">add</Button>
+      <Button type="submit">Register</Button>
     </Form>
   );
 }
